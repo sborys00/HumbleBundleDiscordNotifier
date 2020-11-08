@@ -21,9 +21,9 @@ namespace HumbleBundleDiscordNotifier.Models
         public string Type { get; set; }
 
         [JsonPropertyName("start_date|datetime")]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [JsonPropertyName("end_date|datetime")]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
     }
 }
