@@ -35,11 +35,6 @@ namespace HumbleBundleDiscordNotifier.Models
 
         public void AddWebhook(string webhook)
         {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException();
-            }
-
             if (IsWebhookStored(webhook))
             {
                 // log that information
@@ -58,9 +53,7 @@ namespace HumbleBundleDiscordNotifier.Models
         public bool IsWebhookStored(string webhook)
         {
             if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException();
-            }
+                return false;
 
             List<string> loadedWebhooks = GetDeserializedWebhooks();
 
