@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class Product
+    public class Product
     {
         [JsonPropertyName("machine_name")]
         public string MachineName { get; set; }
