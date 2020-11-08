@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/HumbleBundleDiscordNotifier/appsettings.Development.json
+/HumbleBundleDiscordNotifier/appsettings.Production.json

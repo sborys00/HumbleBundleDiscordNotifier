@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HumbleBundleDiscordNotifier": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
