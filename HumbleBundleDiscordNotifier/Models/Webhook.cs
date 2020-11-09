@@ -5,10 +5,16 @@ using System.Text;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class Webhook
+    [Serializable]
+    public class Webhook
     {
         public readonly string Hash;
         private readonly string url;
+
+        public Webhook()
+        {
+
+        }
 
         public Webhook(string url)
         {
