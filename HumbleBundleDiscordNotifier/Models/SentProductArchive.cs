@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class SentProductArchive
+    public class SentProductArchive
     {
         private readonly IConfiguration _config;
         private readonly string filePath;
