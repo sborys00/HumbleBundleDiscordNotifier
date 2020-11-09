@@ -19,47 +19,47 @@ namespace HumbleBundleDiscordNotifier.Models
             filePath = _config.GetValue<string>("Archive_File_Path");
         }
 
-        public List<string> GetDeserializedWebhooks()
+        public List<string> GetDeserializedUrls()
         {
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException();
             }
 
-            string serializedWebhooks;
+            string serializedUrls;
             using (StreamReader sr = new StreamReader(filePath))
-                serializedWebhooks = sr.ReadToEnd();
+                serializedUrls = sr.ReadToEnd();
 
-            return JsonSerializer.Deserialize<List<string>>(serializedWebhooks);
+            return JsonSerializer.Deserialize<List<string>>(serializedUrls);
         }
 
-        public void AddWebhook(string webhook)
+        public void AddUrl(string url)
         {
-            if (IsWebhookStored(webhook))
+            if (IsUrlStored(url))
             {
                 // log that information
                 return;
             }
             else
             {
-                List<string> loadedWebhooks = GetDeserializedWebhooks();
-                loadedWebhooks.Add(webhook);
-                string serializedData = JsonSerializer.Serialize(loadedWebhooks);
+                List<string> loadedUrls = GetDeserializedUrls();
+                loadedUrls.Add(url);
+                string serializedData = JsonSerializer.Serialize(loadedUrls);
                 using (StreamWriter sw = new StreamWriter(filePath))
                     sw.Write(serializedData);
             }
         }
 
-        public bool IsWebhookStored(string webhook)
+        public bool IsUrlStored(string url)
         {
             if (!File.Exists(filePath))
                 return false;
 
-            List<string> loadedWebhooks = GetDeserializedWebhooks();
+            List<string> loadedUrls = GetDeserializedUrls();
 
-            foreach (var storedWebhook in loadedWebhooks)
+            foreach (var storedUrl in loadedUrls)
             {
-                if (storedWebhook == webhook)
+                if (storedUrl == url)
                     return true;
             }
             return false;
