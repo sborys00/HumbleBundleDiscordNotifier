@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ namespace HumbleBundleDiscordNotifier.Models
             filePath = _config.GetValue<string>("Archive_File_Path");
         }
 
-        public List<string> GetDeserializedUrls()
+        public List<UrlWithWebhooks> GetDeserializedUrls()
         {
             if (!File.Exists(filePath))
             {
@@ -30,20 +31,17 @@ namespace HumbleBundleDiscordNotifier.Models
             using (StreamReader sr = new StreamReader(filePath))
                 serializedUrls = sr.ReadToEnd();
 
-            return JsonSerializer.Deserialize<List<string>>(serializedUrls);
+            return JsonSerializer.Deserialize<List<UrlWithWebhooks>>(serializedUrls);
         }
 
-        public void AddUrl(string url)
+        public void AddUrl(UrlWithWebhooks urlWithWebhooks)
         {
-            if (IsUrlStored(url))
-            {
-                // log that information
-                return;
-            }
+            if (IsUrlStored(urlWithWebhooks.Url))
+                Log.Logger.Information("Given url is already stored in the archive.");
             else
             {
-                List<string> loadedUrls = GetDeserializedUrls();
-                loadedUrls.Add(url);
+                List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
+                loadedUrls.Add(urlWithWebhooks);
                 string serializedData = JsonSerializer.Serialize(loadedUrls);
                 using (StreamWriter sw = new StreamWriter(filePath))
                     sw.Write(serializedData);
@@ -55,11 +53,11 @@ namespace HumbleBundleDiscordNotifier.Models
             if (!File.Exists(filePath))
                 return false;
 
-            List<string> loadedUrls = GetDeserializedUrls();
+            List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
 
-            foreach (var storedUrl in loadedUrls)
+            foreach (var stored in loadedUrls)
             {
-                if (storedUrl == url)
+                if (stored.Url == url)
                     return true;
             }
             return false;
