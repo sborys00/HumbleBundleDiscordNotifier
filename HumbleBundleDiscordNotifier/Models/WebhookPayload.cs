@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class WebhookPayload
+    public class WebhookPayload
     {
         public string content { get; set; }
         public List<Embed> embeds { get; set; }
 
+        public WebhookPayload() { }
         public WebhookPayload(Product product)
         {
             Embed embed = new Embed();
@@ -28,9 +29,14 @@ namespace HumbleBundleDiscordNotifier.Models
             content = customMessage;
         }
 
+        public string SerializePayload()
+        {
+            return JsonSerializer.Serialize(this);
+        }
+
     }
 
-    class Embed
+    public class Embed
     {
         public string title { get; set; }
         public string description { get; set; }
@@ -43,37 +49,40 @@ namespace HumbleBundleDiscordNotifier.Models
         public List<Field> fields { get; set; }
     }
 
-    class Author
+    public class Author
     {
         public string name { get; set; }
 
+        public Author() { }
         public Author(string name)
         {
             this.name = name;
         }
     }
 
-    class Footer
+    public class Footer
     {
         public string text { get; set; }
 
+        public Footer() { }
         public Footer(string text)
         {
             this.text = text;
         }
     }
 
-    class Picture
+    public class Picture
     {
         public string url { get; set; }
 
+        public Picture() { }
         public Picture(string url)
         {
             this.url = url;
         }
     }
 
-    class Field
+    public class Field
     {
         public string name { get; set; }
         public string value { get; set; }
