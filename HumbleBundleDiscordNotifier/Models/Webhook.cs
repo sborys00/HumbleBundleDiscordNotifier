@@ -11,11 +11,6 @@ namespace HumbleBundleDiscordNotifier.Models
         public readonly string Hash;
         private readonly string url;
 
-        public Webhook()
-        {
-
-        }
-
         public Webhook(string url)
         {
             this.url = url;
