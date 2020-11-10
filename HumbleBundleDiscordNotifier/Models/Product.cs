@@ -14,6 +14,9 @@ namespace HumbleBundleDiscordNotifier.Models
         [JsonPropertyName("tile_name")]
         public string ProductName { get; set; }
 
+        [JsonPropertyName("detailed_marketing_blurb")]
+        public string ProductDescription { get; set; }
+
         [JsonPropertyName("high_res_tile_image")]
         public string ProductThumbnailUrl { get; set; }
 
