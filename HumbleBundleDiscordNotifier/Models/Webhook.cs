@@ -8,8 +8,8 @@ namespace HumbleBundleDiscordNotifier.Models
     [Serializable]
     public class Webhook
     {
-        public readonly string Hash;
-        public readonly string url;
+        public string Hash { get; set; }
+        public string url { get; set; }
 
         public Webhook(string url)
         {
