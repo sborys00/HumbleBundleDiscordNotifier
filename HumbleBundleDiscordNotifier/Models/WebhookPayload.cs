@@ -9,6 +9,25 @@ namespace HumbleBundleDiscordNotifier.Models
         public string content { get; set; }
         public List<Embed> embeds { get; set; }
 
+        public WebhookPayload(Product product)
+        {
+            Embed embed = new Embed();
+            embed.title = product.ProductName;
+            embed.description = product.ProductDescription;
+
+            embed.author = new Author("HumbleBundle.com");
+            embed.image = new Picture(product.ProductThumbnailUrl);
+            embed.footer = new Footer(DateTime.Parse(product.StartDate).ToString());
+
+            embeds = new List<Embed>();
+            embeds.Add(embed);
+        }
+
+        public WebhookPayload(Product product, string customMessage) : this (product)
+        {
+            content = customMessage;
+        }
+
     }
 
     class Embed
@@ -21,6 +40,7 @@ namespace HumbleBundleDiscordNotifier.Models
         public Picture thumbnail { get; set; }
         public Picture image { get; set; }
         public Footer footer { get; set; }
+        public List<Field> fields { get; set; }
     }
 
     class Author
