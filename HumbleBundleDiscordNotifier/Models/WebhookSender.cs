@@ -42,12 +42,19 @@ namespace HumbleBundleDiscordNotifier.Models
 
         public async Task SendProducts(List<Product> products)
         {
+            List<UrlWithWebhooks> storedProducts = _archive.GetDeserializedUrls();
+
             foreach(Product product in products)
             {
-                if (_archive.IsUrlStored(product.ProductUrl))
+                if (_archive.IsUrlStored(storedProducts, product.ProductUrl) == false)
                 {
-
+                    _productsToSend.Enqueue(product);
                 }
+            }
+
+            if(_productsToSend.Count > 0 && _timer.Enabled == false)
+            {
+                _timer.Start();
             }
         }
 
