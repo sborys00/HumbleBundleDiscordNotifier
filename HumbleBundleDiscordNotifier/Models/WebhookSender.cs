@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Text.Json;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
@@ -28,16 +29,17 @@ namespace HumbleBundleDiscordNotifier.Models
             _timer.Elapsed += SendingLoop;
         }
 
-        private void SendingLoop(object sender, ElapsedEventArgs e)
+        private async void SendingLoop(object sender, ElapsedEventArgs e)
         {
             if(_productsToSend.Count > 0)
             {
-
+                await SendProduct(_productsToSend.Dequeue());
             }
             else
             {
                 _timer.Stop();
             }
+            _timer.Start();
         }
 
         public void EnqueueProducts(List<Product> products)
@@ -56,6 +58,21 @@ namespace HumbleBundleDiscordNotifier.Models
             {
                 _timer.Start();
             }
+        }
+
+        private async Task SendProduct(Product product)
+        {
+            Webhook[] webhooks = JsonSerializer.Deserialize<Webhook[]>(_config.GetSection("Webhooks").Value);
+            WebhookPayload payload = new WebhookPayload(product);
+
+            List<Task> tasks = new List<Task>();
+
+            foreach(Webhook wh in webhooks)
+            {
+                 tasks.Add(SendWebhook(wh.url, payload));
+            }
+
+            await Task.WhenAll(tasks);
         }
 
         private async Task SendWebhook(string url, WebhookPayload payload)
