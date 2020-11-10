@@ -40,7 +40,7 @@ namespace HumbleBundleDiscordNotifier.Models
             }
         }
 
-        public async Task SendProducts(List<Product> products)
+        public async Task EnqueueProducts(List<Product> products)
         {
             List<UrlWithWebhooks> storedProducts = _archive.GetDeserializedUrls();
 
