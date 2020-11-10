@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    public class SentProductArchive
+    public class SentProductArchive : ISentProductArchive
     {
         private readonly IConfiguration _config;
         private readonly string filePath;
@@ -19,21 +19,6 @@ namespace HumbleBundleDiscordNotifier.Models
 
             filePath = _config.GetValue<string>("Archive_File_Path");
         }
-
-        public List<UrlWithWebhooks> GetDeserializedUrls()
-        {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException();
-            }
-
-            string serializedUrls;
-            using (StreamReader sr = new StreamReader(filePath))
-                serializedUrls = sr.ReadToEnd();
-
-            return JsonSerializer.Deserialize<List<UrlWithWebhooks>>(serializedUrls);
-        }
-
         public void AddUrl(UrlWithWebhooks urlWithWebhooks)
         {
             if (IsUrlStored(urlWithWebhooks.Url))
@@ -44,7 +29,10 @@ namespace HumbleBundleDiscordNotifier.Models
                 loadedUrls.Add(urlWithWebhooks);
                 string serializedData = JsonSerializer.Serialize(loadedUrls);
                 using (StreamWriter sw = new StreamWriter(filePath))
+                {
                     sw.Write(serializedData);
+
+                }
             }
         }
 
@@ -62,5 +50,20 @@ namespace HumbleBundleDiscordNotifier.Models
             }
             return false;
         }
+
+        private List<UrlWithWebhooks> GetDeserializedUrls()
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException();
+            }
+
+            string serializedUrls;
+            using (StreamReader sr = new StreamReader(filePath))
+                serializedUrls = sr.ReadToEnd();
+
+            return JsonSerializer.Deserialize<List<UrlWithWebhooks>>(serializedUrls);
+        }
+
     }
 }

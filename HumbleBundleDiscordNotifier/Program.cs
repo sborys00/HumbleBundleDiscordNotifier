@@ -1,14 +1,21 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using HumbleBundleDiscordNotifier.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
 
 namespace HumbleBundleDiscordNotifier
 {
     class Program
     {
+        private static System.Timers.Timer _timer;
+        private static IConfiguration _config;
+
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder();
@@ -25,13 +32,27 @@ namespace HumbleBundleDiscordNotifier
                 })
                 .ConfigureServices((context, services) =>
                 {
-
+                    services.AddTransient<ISentProductArchive, SentProductArchive>();
                 })
                 .UseSerilog()
                 .Build();
+            _config = host.Services.GetRequiredService<IConfiguration>();
 
+            _timer = new System.Timers.Timer(_config.GetValue<int>("ScanningInterval"));
+            _timer.AutoReset = false;
+            _timer.Elapsed += MainReccuring;
+            MainReccuring(null, null);
 
+            //Keeps the program running
+            Task.Run(() => Task.Delay(Timeout.Infinite)).GetAwaiter().GetResult();
         }
+
+        static void MainReccuring(Object source, ElapsedEventArgs args)
+        {
+
+            _timer.Start();
+        }
+
         static void BuildConfig(IConfigurationBuilder builder)
         {
             builder.SetBasePath(Directory.GetCurrentDirectory())
