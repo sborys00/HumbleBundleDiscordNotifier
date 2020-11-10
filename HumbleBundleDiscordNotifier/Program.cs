@@ -44,12 +44,6 @@ namespace HumbleBundleDiscordNotifier
             _timer.Elapsed += MainReccuring;
             MainReccuring(null, null);
 
-            ISentProductArchive archive = host.Services.GetRequiredService<ISentProductArchive>();
-            List<Webhook> wh = new List<Webhook>();
-            wh.Add(new Webhook("testwh"));
-            UrlWithWebhooks url = new UrlWithWebhooks("test", wh);
-            archive.AddUrl(url);
-
             //Keeps the program running
             Task.Run(() => Task.Delay(Timeout.Infinite)).GetAwaiter().GetResult();
         }

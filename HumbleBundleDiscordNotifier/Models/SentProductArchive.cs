@@ -40,14 +40,9 @@ namespace HumbleBundleDiscordNotifier.Models
             }
         }
 
-        public bool IsUrlStored(string url)
+        public bool IsUrlStored(List<UrlWithWebhooks> urls, string url)
         {
-            if (!File.Exists(filePath))
-                return false;
-
-            List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
-
-            foreach (var stored in loadedUrls)
+            foreach (var stored in urls)
             {
                 if (stored.Url == url)
                     return true;
