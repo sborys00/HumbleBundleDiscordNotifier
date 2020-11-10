@@ -18,6 +18,10 @@ namespace HumbleBundleDiscordNotifier.Models
             _config = config;
 
             filePath = _config.GetValue<string>("Archive_File_Path");
+
+            //creates file 
+            using(StreamWriter sw = new StreamWriter(filePath)){}
+
         }
         public void AddUrl(UrlWithWebhooks urlWithWebhooks)
         {
@@ -61,6 +65,10 @@ namespace HumbleBundleDiscordNotifier.Models
             string serializedUrls;
             using (StreamReader sr = new StreamReader(filePath))
                 serializedUrls = sr.ReadToEnd();
+            if(serializedUrls.Length == 0)
+            {
+                return new List<UrlWithWebhooks>();
+            }
 
             return JsonSerializer.Deserialize<List<UrlWithWebhooks>>(serializedUrls);
         }
