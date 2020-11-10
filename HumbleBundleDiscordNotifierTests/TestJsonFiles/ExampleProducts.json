@@ -1,0 +1,266 @@
+[
+  {
+    "tile_logo_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/logos/Voices-of-Warhammer-2020-logo-white-clear.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "static": "",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "machine_name": "voiceswarhammerblacklibrary_bookbundle",
+    "high_res_tile_image": "https://hb.imgix.net/7a1e2b07e8c1ec9fb30802487b748d78b6042b02.png?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d600\u0026w\u003d1200\u0026s\u003dba2e892d394718913e6d4220c891ee87",
+    "disable_hero_tile": true,
+    "marketing_blurb": "Get \u003cem\u003eTrollslayer\u003c/em\u003e, \u003cem\u003eFirst and Only\u003c/em\u003e, \u003cem\u003eFor the Emperor\u003c/em\u003e, \u003cem\u003eThe Wicked and the Damned\u003c/em\u003e, \u003cem\u003eSacrosanct \u0026 Other Stories\u003c/em\u003e, \u003cem\u003eThe House of Night and Chain\u003c/em\u003e, and more!",
+    "hover_title": "Pay What You Want",
+    "product_url": "/books/voices-warhammer-2020-black-library-books",
+    "tile_image": "https://hb.imgix.net/7a1e2b07e8c1ec9fb30802487b748d78b6042b02.png?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d353\u0026w\u003d616\u0026s\u003d68b4404eb79b1fb127bb0bbb071e26b0",
+    "image_grid_item_width": 150,
+    "high_res_tile_image_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/humble_home/voiceswarhammerblacklibrary_bundle-product.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "static": "",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "hero_highlights": [
+      {
+        "heading": "US$748 worth of awesome stuff",
+        "tooltip": "Get audiobooks collectively valued at up to US$748."
+      },
+      {
+        "heading": "Pay \u20ac0.84 or more",
+        "tooltip": "Name your price of \u20ac0.84 or more and increase your contribution to upgrade your bundle."
+      },
+      {
+        "heading": "DRM-free",
+        "tooltip": "Download the audiobooks onto your favorite device to enjoy anywhere, anytime."
+      },
+      {
+        "heading": "MP3 Format",
+        "tooltip": "These audiobooks come in an MP3 file type to support many devices."
+      }
+    ],
+    "hover_highlights": [ "22 books", "US$748 Value" ],
+    "fallback_store_sale_logo": "",
+    "supports_partners": true,
+    "hero_tile_grid_info": {
+      "width": 150,
+      "size_override": null,
+      "displayitem_image_info": {},
+      "height": 218
+    },
+    "detailed_marketing_blurb": "We\u0027ve teamed up with Black Library for our newest bundle! Get audiobooks like \u003cem\u003eFirst and Only\u003c/em\u003e, \u003cem\u003eRealmslayer\u003c/em\u003e, \u003cem\u003eSoul Wars\u003c/em\u003e, \u003cem\u003eFor the Emperor\u003c/em\u003e, \u003cem\u003eThe House of Night and Chain\u003c/em\u003e, and \u003cem\u003eValdor: Birth of the Imperium\u003c/em\u003e. Plus, your purchase will support the EveryLibrary Institute!",
+    "image_grid_retina_urls": [],
+    "image_grid_urls": [],
+    "tile_logo": "https://hb.imgix.net/43f38bb98240479373165baf0e5e3cfa12b3577a.png?auto\u003dcompress,format\u0026h\u003d170\u0026w\u003d1200\u0026s\u003d95d82fc362e9ccd6778595397bf17f98",
+    "tile_short_name": "Voices of Warhammer 2020 by Black Library",
+    "start_date|datetime": "2020-10-21T18:00:00",
+    "image_grid_item_height": 218,
+    "end_date|datetime": "2020-11-11T19:00:00",
+    "size_override": null,
+    "tile_stamp": "audiobook",
+    "bundles_sold|decimal": 15654.0,
+    "tile_name": "Humble Audiobook Bundle: Voices of Warhammer 2020 by Black Library",
+    "short_marketing_blurb": "Get Trollslayer, First and Only, For the Emperor and more!",
+    "tile_image_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/humble_home/voiceswarhammerblacklibrary_bundle-product.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "static": "",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "type": "bundle",
+    "highlights": [ "Pay What You Want", "22 books", "US$748 Value", "Support Charity" ]
+  },
+  {
+    "tile_logo_information": {
+      "config": {
+        "image_type": "imgix",
+        "gcs": "images/logos/callofduty_blackops4_battleedition-logo.png",
+        "imgix": {
+          "args": { "w": 650 },
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "images/subscription/humblechoice_logo_tile.png",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "machine_name": "november_2020_choice",
+    "high_res_tile_image_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/humble_home/november2020_Promo-product.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "high_res_tile_image": "https://hb.imgix.net/9b10d19286604f7286a1ad99622b280ef242a1d3.png?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d600\u0026w\u003d1200\u0026s\u003d69d6c63b370702a9e4e96a870e0b8932",
+    "marketing_blurb": "Limited time: Get all 12 games when you subscribe to Choice Premium. New subscribers only pay $12!",
+    "hover_title": "Get all 12 games with Choice Premium",
+    "product_url": "/subscription",
+    "tile_image": "https://hb.imgix.net/9b10d19286604f7286a1ad99622b280ef242a1d3.png?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d353\u0026w\u003d616\u0026s\u003d0960020cccce397323bba49c82d718d1",
+    "end_date|datetime": "2020-12-04T18:00:00",
+    "fallback_store_sale_logo": "",
+    "highlights": [ "Choose from $100+ Worth of Games", "Up to 20% off Store", "Support Charity" ],
+    "supports_partners": true,
+    "detailed_marketing_blurb": "Limited time: Get all 12 games when you subscribe to Choice Premium. New subscribers only pay $12!",
+    "tile_logo": "https://hb.imgix.net/9a6a64a968664683d0948c03012adb779c5d59e1.png?auto\u003dcompress,format\u0026h\u003d170\u0026w\u003d650\u0026s\u003db84916d019ca2af0e2166b9921f2833d",
+    "type": "monthly",
+    "start_date|datetime": "2020-11-06T18:00:00",
+    "hover_highlights": [ "Keep Everything", "20% off Store", "Great Value" ],
+    "tile_stamp": "choice_stamp",
+    "tile_name": "November 2020 Humble Choice",
+    "short_marketing_blurb": "Get all 12 games when you subscribe to Choice Premium.",
+    "early_unlock_string": "Darksiders III, Yakuza Kiwami 2, and Imperator: Rome Deluxe Edition",
+    "tile_image_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/humble_home/november2020_Promo-product.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "imgix": {}
+          }
+        }
+      }
+    }
+  },
+  {
+    "current_price|money": {
+      "currency": "EUR",
+      "amount": 69.99
+    },
+    "machine_name": "destiny2_beyondlightdeluxeedition_storefront",
+    "type": "store",
+    "tile_logo": "",
+    "current_pricing": {
+      "RU": [ 2499.0, "RUB" ],
+      "CN": [ 295.0, "CNY" ],
+      "CA": [ 84.99, "CAD" ],
+      "TR": [ 304.99, "TRY" ],
+      "US": [ 69.99, "USD" ],
+      "NZ": [ 118.95, "NZD" ],
+      "AU": [ 104.95, "AUD" ],
+      "PH": [ 1429.95, "PHP" ],
+      "EUROPE_GBP": [ 59.99, "GBP" ],
+      "EUROPE_EURO": [ 69.99, "EUR" ]
+    },
+    "fallback_store_sale_logo": "",
+    "high_res_tile_image_information": { "path": "images/storefront/master_images/destiny2_beyondlight_deluxe_main.jpg" },
+    "incompatible_features": [],
+    "high_res_tile_image": "https://hb.imgix.net/d2ad464343447d18f08e66e4a6a53b900ad75a00.jpg?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d600\u0026w\u003d1200\u0026s\u003d0c02fb3ba7fb8c070a664aec5763db9a",
+    "operating_systems": [ "windows" ],
+    "product_url": "/store/destiny-2-beyond-light-deluxe-edition",
+    "rewards_split|decimal": 0.0,
+    "tile_image_information": { "path": "images/storefront/master_images/destiny2_beyondlight_deluxe_main.jpg" },
+    "full_pricing": {
+      "RU": [ 2499.0, "RUB" ],
+      "CN": [ 295.0, "CNY" ],
+      "CA": [ 84.99, "CAD" ],
+      "TR": [ 304.99, "TRY" ],
+      "US": [ 69.99, "USD" ],
+      "NZ": [ 118.95, "NZD" ],
+      "AU": [ 104.95, "AUD" ],
+      "PH": [ 1429.95, "PHP" ],
+      "EUROPE_GBP": [ 59.99, "GBP" ],
+      "EUROPE_EURO": [ 69.99, "EUR" ]
+    },
+    "tile_name": "Destiny 2: Beyond Light Deluxe Edition",
+    "platforms": [ "steam" ],
+    "tile_image": "https://hb.imgix.net/d2ad464343447d18f08e66e4a6a53b900ad75a00.jpg?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d353\u0026w\u003d616\u0026s\u003d24e26ecebdf9c15ee5d0b3525264193c",
+    "supports_partners": true,
+    "full_price|money": {
+      "currency": "EUR",
+      "amount": 69.99
+    }
+  },
+  {
+    "tile_logo_information": { "config": null },
+    "machine_name": "squareenixactionadventuresale_2020",
+    "reverse_logo_and_sale_text": null,
+    "high_res_tile_image_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/storefront/master_images/squareenix-sale-2020-store-grid-product.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "high_res_tile_image": "https://hb.imgix.net/7c2f8b3f8c8b3fe05d0ebb274c2b37819631b03f.png?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d600\u0026w\u003d1200\u0026s\u003d6fcb9643c7f55ea8793e33c3d1e910a0",
+    "fallback_logo_information": { "config": null },
+    "marketing_blurb": null,
+    "product_url": "/store/promo/square-enix-action-adventure-sale/",
+    "tile_image": "https://hb.imgix.net/7c2f8b3f8c8b3fe05d0ebb274c2b37819631b03f.png?auto\u003dcompress,format\u0026fit\u003dcrop\u0026h\u003d353\u0026w\u003d616\u0026s\u003db8bb4c797ca1f5bad55b856dde06b63f",
+    "category": "bundle/monthly",
+    "fallback_store_sale_logo": "",
+    "highlights": null,
+    "use_wide_promo_logo": null,
+    "supports_partners": true,
+    "detailed_marketing_blurb": null,
+    "tile_logo": "",
+    "hide_end_date": null,
+    "end_date|datetime": "2020-11-16T18:00:00",
+    "tile_stamp": null,
+    "tile_name": "Square Enix Action \u0026 Adventure Sale",
+    "short_marketing_blurb": null,
+    "product_title": null,
+    "tile_image_information": {
+      "config": {
+        "image_type": "gcs",
+        "gcs": "images/storefront/master_images/squareenix-sale-2020-store-grid-product.png",
+        "imgix": {
+          "args": {},
+          "master_image": {
+            "image_type": "gcs",
+            "gcs": "",
+            "imgix": {}
+          }
+        }
+      }
+    },
+    "carousel_body_text": null,
+    "type": "storepagetile",
+    "is_store_page_layout": true,
+    "hide_sale_text": null
+  }
+]
