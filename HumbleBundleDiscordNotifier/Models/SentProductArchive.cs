@@ -25,11 +25,11 @@ namespace HumbleBundleDiscordNotifier.Models
         }
         public void AddUrl(UrlWithWebhooks urlWithWebhooks)
         {
-            if (IsUrlStored(urlWithWebhooks.Url))
+            List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
+            if (IsUrlStored(loadedUrls, urlWithWebhooks.Url))
                 Log.Logger.Information("Given url is already stored in the archive.");
             else
             {
-                List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
                 loadedUrls.Add(urlWithWebhooks);
                 string serializedData = JsonSerializer.Serialize(loadedUrls);
                 using (StreamWriter sw = new StreamWriter(filePath))
@@ -40,9 +40,9 @@ namespace HumbleBundleDiscordNotifier.Models
             }
         }
 
-        public bool IsUrlStored(List<UrlWithWebhooks> urls, string url)
+        public bool IsUrlStored(List<UrlWithWebhooks> storedUrls, string url)
         {
-            foreach (var stored in urls)
+            foreach (var stored in storedUrls)
             {
                 if (stored.Url == url)
                     return true;
@@ -50,7 +50,7 @@ namespace HumbleBundleDiscordNotifier.Models
             return false;
         }
 
-        private List<UrlWithWebhooks> GetDeserializedUrls()
+        public List<UrlWithWebhooks> GetDeserializedUrls()
         {
             if (!File.Exists(filePath))
             {
