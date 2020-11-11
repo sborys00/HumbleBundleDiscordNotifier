@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +40,17 @@ namespace HumbleBundleDiscordNotifier.Models
         private void ScanningLoop(Object source, ElapsedEventArgs args)
         {
             _timer.Stop();
-            List<Product> products = _scraper.GetListOfProducts();
-            _sender.EnqueueProducts(products.FindAll(p => p.Type == "bundle"));
+
+            try
+            {
+                List<Product> products = _scraper.GetListOfProducts();
+                _sender.EnqueueProducts(products.FindAll(p => p.Type == "bundle"));
+            }
+            catch(Exception e)
+            {
+                Log.Logger.Error(e.Message);
+            }
+
             _timer.Start();
         }
     }
