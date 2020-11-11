@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Timers;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class BundleNotifier
+    class BundleNotifier : IBundleNotifier
     {
         private readonly IConfiguration _config;
         private readonly IWebhookSender _sender;
@@ -24,11 +25,22 @@ namespace HumbleBundleDiscordNotifier.Models
             _timer.Elapsed += ScanningLoop;
         }
 
+        public void Run()
+        {
+            _timer.Start();
+            ScanningLoop(null, null);
+        }
+
+        public void Stop()
+        {
+            _timer.Stop();
+        }
+
         private void ScanningLoop(Object source, ElapsedEventArgs args)
         {
             _timer.Stop();
             List<Product> products = _scraper.GetListOfProducts();
-            _sender.EnqueueProducts(products);
+            _sender.EnqueueProducts(products.FindAll(p => p.Type == "bundle"));
             _timer.Start();
         }
     }
