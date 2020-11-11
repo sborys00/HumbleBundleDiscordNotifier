@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Text.Json;
+using System.Linq;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
@@ -50,7 +51,7 @@ namespace HumbleBundleDiscordNotifier.Models
 
             foreach (Product product in products)
             {
-                if (_archive.IsUrlStored(storedProducts, product.ProductUrl) == false)
+                if (_archive.IsUrlStored(storedProducts, product.ProductUrl) == false && IsInQueue(product) == false)
                 {
                     _productsToSend.Enqueue(product);
                 }
@@ -114,6 +115,11 @@ namespace HumbleBundleDiscordNotifier.Models
                     }
                 }
             }
+        }
+
+        private bool IsInQueue(Product product)
+        {
+            return _productsToSend.Any(p => p.ProductUrl == product.ProductUrl);
         }
     }
 }
