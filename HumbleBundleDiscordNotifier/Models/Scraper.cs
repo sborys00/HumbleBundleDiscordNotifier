@@ -4,6 +4,7 @@ using Serilog;
 using Serilog.Core;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace HumbleBundleDiscordNotifier.Models
@@ -26,6 +27,7 @@ namespace HumbleBundleDiscordNotifier.Models
             JsonDocument json = JsonDocument.Parse(data);
             JsonElement productsJson = json.RootElement.GetProperty("mosaic")[1].GetProperty("products");
             List<Product> products = JsonSerializer.Deserialize<List<Product>>(productsJson.GetRawText());
+            foreach (Product product in products) product.ClearTagsAndEntities();
             return products;
         }
 

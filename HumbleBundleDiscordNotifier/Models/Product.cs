@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
@@ -28,6 +30,14 @@ namespace HumbleBundleDiscordNotifier.Models
 
         [JsonPropertyName("end_date|datetime")]
         public string EndDate { get; set; }
+
+        public void ClearTagsAndEntities()
+        {
+            if(ProductName != null)
+                ProductName = HtmlEntity.DeEntitize(Regex.Replace(ProductName, "<.*?>", String.Empty));
+            if(ProductDescription != null)
+                ProductDescription = HtmlEntity.DeEntitize(Regex.Replace(ProductDescription, "<.*?>", String.Empty));
+        }
 
         public override string ToString()
         {
