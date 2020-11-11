@@ -28,5 +28,10 @@ namespace HumbleBundleDiscordNotifier.Models
 
         [JsonPropertyName("end_date|datetime")]
         public string EndDate { get; set; }
+
+        public override string ToString()
+        {
+            return this.ProductName;
+        }
     }
 }
