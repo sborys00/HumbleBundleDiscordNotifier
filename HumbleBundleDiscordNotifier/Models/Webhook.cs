@@ -17,6 +17,16 @@ namespace HumbleBundleDiscordNotifier.Models
             Hash = GetHashString(url);
         }
 
+        static public List<Webhook> GenerateWebhooks(string[] urls)
+        {
+            List<Webhook> webhooks = new List<Webhook>();
+            foreach(string url in urls)
+            {
+                webhooks.Add(new Webhook(url));
+            }
+            return webhooks;
+        }
+
         private byte[] GetHash(string input)
         {
             using (HashAlgorithm algorithm = SHA256.Create())
