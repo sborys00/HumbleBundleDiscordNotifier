@@ -4,6 +4,7 @@ using Serilog;
 using Serilog.Core;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
@@ -23,11 +24,23 @@ namespace HumbleBundleDiscordNotifier.Models
         public List<Product> GetListOfProducts()
         {
             HtmlDocument doc = DownloadHtmlDocument();
-            string data = ExtractDataFromHtmlDocument(doc);
+            string data = ExtractDataFromHtmlDocument(doc, "webpack-json-data");
+
             JsonDocument json = JsonDocument.Parse(data);
+
             JsonElement productsJson = json.RootElement.GetProperty("mosaic")[1].GetProperty("products");
+            JsonElement productsJson2 = json.RootElement.GetProperty("mosaic")[0].GetProperty("products");
+
             List<Product> products = JsonSerializer.Deserialize<List<Product>>(productsJson.GetRawText());
-            foreach (Product product in products) product.ClearTagsAndEntities();
+            List<Product> products2 = JsonSerializer.Deserialize<List<Product>>(productsJson2.GetRawText());
+
+            products.AddRange(products2);
+
+            foreach (Product product in products)
+            {
+                product.ClearTagsAndEntities();
+            }
+
             return products;
         }
 
@@ -38,9 +51,9 @@ namespace HumbleBundleDiscordNotifier.Models
             return document;
         }
 
-        private string ExtractDataFromHtmlDocument(HtmlDocument doc)
+        private string ExtractDataFromHtmlDocument(HtmlDocument doc, string id)
         {
-            string data = doc.GetElementbyId("webpack-json-data").InnerText;
+            string data = doc.GetElementbyId(id).InnerText;
             return data;
         }
     }
