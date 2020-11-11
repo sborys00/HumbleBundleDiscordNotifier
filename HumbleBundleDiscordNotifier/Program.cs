@@ -14,9 +14,6 @@ namespace HumbleBundleDiscordNotifier
 {
     class Program
     {
-        private static System.Timers.Timer _timer;
-        private static IConfiguration _config;
-
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder();
@@ -33,25 +30,19 @@ namespace HumbleBundleDiscordNotifier
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddTransient<ISentProductArchive, SentProductArchive>();
+                    services.AddTransient<ISentProductArchive, SentProductArchive>()
+                    .AddTransient<IScraper, Scraper>()
+                    .AddSingleton<IWebhookSender, WebhookSender>()
+                    .AddSingleton<IBundleNotifier, BundleNotifier>();
                 })
                 .UseSerilog()
                 .Build();
-            _config = host.Services.GetRequiredService<IConfiguration>();
 
-            _timer = new System.Timers.Timer(_config.GetValue<int>("ScanningInterval"));
-            _timer.AutoReset = false;
-            _timer.Elapsed += MainReccuring;
-            MainReccuring(null, null);
+            IBundleNotifier bundleNotifier = host.Services.GetRequiredService<IBundleNotifier>();
+            bundleNotifier.Run();
 
             //Keeps the program running
             Task.Run(() => Task.Delay(Timeout.Infinite)).GetAwaiter().GetResult();
-        }
-
-        static void MainReccuring(Object source, ElapsedEventArgs args)
-        {
-
-            _timer.Start();
         }
 
         static void BuildConfig(IConfigurationBuilder builder)
