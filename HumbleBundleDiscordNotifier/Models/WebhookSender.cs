@@ -31,9 +31,11 @@ namespace HumbleBundleDiscordNotifier.Models
 
         private async void SendingLoop(object sender, ElapsedEventArgs e)
         {
+            _timer.Stop();
             if (_productsToSend.Count > 0)
             {
-                await SendProduct(_productsToSend.Dequeue());
+                Product productToSend = _productsToSend.Dequeue();
+                await SendProduct(productToSend);
             }
             else
             {
@@ -62,7 +64,9 @@ namespace HumbleBundleDiscordNotifier.Models
 
         private async Task SendProduct(Product product)
         {
-            Webhook[] webhooks = JsonSerializer.Deserialize<Webhook[]>(_config.GetSection("Webhooks").Value);
+            IConfigurationSection cfg = _config.GetSection("Webhooks");
+            string[] webhookUrls = _config.GetSection("Webhooks").Get<String[]>();
+            List<Webhook> webhooks = Webhook.GenerateWebhooks(webhookUrls);
             WebhookPayload payload = new WebhookPayload(product);
 
             List<Task> tasks = new List<Task>();
@@ -71,7 +75,6 @@ namespace HumbleBundleDiscordNotifier.Models
             {
                 tasks.Add(SendWebhook(wh.url, payload));
             }
-
             await Task.WhenAll(tasks);
         }
 
