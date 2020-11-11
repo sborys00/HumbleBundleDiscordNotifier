@@ -76,6 +76,21 @@ namespace HumbleBundleDiscordNotifier.Models
                 tasks.Add(SendWebhook(wh.url, payload));
             }
             await Task.WhenAll(tasks);
+
+            UrlWithWebhooks productLabel = new UrlWithWebhooks();
+            productLabel.Url = product.ProductUrl;
+
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                if(tasks[i].IsCompletedSuccessfully)
+                {
+                    productLabel.Webhooks.Add(webhooks[i]);
+                }
+            }
+            if(productLabel.Webhooks.Count > 0)
+            {
+                _archive.AddUrl(productLabel);
+            }
         }
 
         private async Task SendWebhook(string url, WebhookPayload payload)
