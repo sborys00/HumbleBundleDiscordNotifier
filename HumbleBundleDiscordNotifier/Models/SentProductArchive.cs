@@ -20,7 +20,7 @@ namespace HumbleBundleDiscordNotifier.Models
             filePath = _config.GetValue<string>("Archive_File_Path");
 
             //creates file 
-            using(StreamWriter sw = new StreamWriter(filePath)){}
+            using(StreamWriter sw = new StreamWriter(filePath, true)){}
 
         }
         public void AddUrl(UrlWithWebhooks urlWithWebhooks)
