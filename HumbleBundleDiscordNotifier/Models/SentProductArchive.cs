@@ -27,15 +27,16 @@ namespace HumbleBundleDiscordNotifier.Models
         {
             List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
             if (IsUrlStored(loadedUrls, urlWithWebhooks.Url))
-                Log.Logger.Information("Given url is already stored in the archive.");
+                Log.Logger.Information($"{urlWithWebhooks.Url} is already stored in the archive.");
             else
             {
                 loadedUrls.Add(urlWithWebhooks);
-                string serializedData = JsonSerializer.Serialize(loadedUrls);
+                JsonSerializerOptions options = new JsonSerializerOptions();
+                options.WriteIndented = true;
+                string serializedData = JsonSerializer.Serialize(loadedUrls, options);
                 using (StreamWriter sw = new StreamWriter(filePath))
                 {
                     sw.Write(serializedData);
-
                 }
             }
         }
