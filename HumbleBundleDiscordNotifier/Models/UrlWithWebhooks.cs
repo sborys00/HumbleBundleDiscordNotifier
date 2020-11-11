@@ -12,7 +12,7 @@ namespace HumbleBundleDiscordNotifier.Models
 
         public UrlWithWebhooks()
         {
-
+            Webhooks = new List<Webhook>();
         }
 
         public UrlWithWebhooks(string url, List<Webhook> webhooks)
