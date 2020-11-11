@@ -9,7 +9,7 @@ namespace HumbleBundleDiscordNotifier.Models
     public class Webhook
     {
         public string Hash { get; set; }
-        public string url { get; set; }
+        public readonly string url;
 
         public Webhook() { }
 
