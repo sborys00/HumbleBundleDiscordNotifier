@@ -15,6 +15,7 @@ namespace HumbleBundleDiscordNotifier.Models
             Embed embed = new Embed();
             embed.title = product.ProductName;
             embed.description = product.ProductDescription;
+            embed.url = "https://www.humblebundle.com" + product.ProductUrl;
 
             embed.author = new Author("HumbleBundle.com");
             embed.image = new Picture(product.ProductThumbnailUrl);
@@ -40,6 +41,7 @@ namespace HumbleBundleDiscordNotifier.Models
     {
         public string title { get; set; }
         public string description { get; set; }
+        public string url { get; set; }
         public int color { get; set; }
 
         public Author author { get; set; }
