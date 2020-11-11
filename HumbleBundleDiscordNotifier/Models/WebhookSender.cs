@@ -66,9 +66,22 @@ namespace HumbleBundleDiscordNotifier.Models
         private async Task SendProduct(Product product)
         {
             IConfigurationSection cfg = _config.GetSection("Webhooks");
+            IConfigurationSection cfgColors = _config.GetSection("BackgroundColors");
+
             string[] webhookUrls = _config.GetSection("Webhooks").Get<String[]>();
             List<Webhook> webhooks = Webhook.GenerateWebhooks(webhookUrls);
             WebhookPayload payload = new WebhookPayload(product);
+
+            Dictionary<string, int> colors = cfgColors.Get<Dictionary<string, int>>();
+            foreach(Embed embed in payload.embeds)
+            {
+                string[] elems = product.MachineName.Split("_");
+                string key = elems[elems.Length-1];
+                if(colors.ContainsKey(key))
+                {
+                    embed.color = colors[key];
+                }
+            }
 
             List<Task> tasks = new List<Task>();
 
