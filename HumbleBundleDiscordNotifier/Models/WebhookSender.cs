@@ -72,14 +72,12 @@ namespace HumbleBundleDiscordNotifier.Models
 
         private async Task SendProduct(Product product)
         {
-            IConfigurationSection cfg = _config.GetSection("Webhooks");
             IConfigurationSection cfgColors = _config.GetSection("BackgroundColors");
 
-            string[] webhookUrls = _config.GetSection("Webhooks").Get<String[]>();
-            List<Webhook> webhooks = Webhook.GenerateWebhooks(webhookUrls);
+            List<Webhook> webhooks = GetWebhooks();
             WebhookPayload payload = new WebhookPayload(product);
-
             Dictionary<string, int> colors = cfgColors.Get<Dictionary<string, int>>();
+
             foreach(Embed embed in payload.embeds)
             {
                 string[] elems = product.MachineName.Split("_");
@@ -150,6 +148,13 @@ namespace HumbleBundleDiscordNotifier.Models
         private bool IsInQueue(Product product)
         {
             return _productsToSend.Any(p => p.ProductUrl == product.ProductUrl);
+        }
+
+        private List<Webhook> GetWebhooks()
+        {
+            IConfigurationSection cfg = _config.GetSection("Webhooks");
+            string[] webhookUrls = _config.GetSection("Webhooks").Get<String[]>();
+            return Webhook.GenerateWebhooks(webhookUrls);
         }
     }
 }
