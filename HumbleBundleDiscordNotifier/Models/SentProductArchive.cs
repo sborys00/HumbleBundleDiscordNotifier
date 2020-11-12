@@ -47,6 +47,10 @@ namespace HumbleBundleDiscordNotifier.Models
             if(IsUrlStored(storedUrls, productUrl))
             {
                 UrlWithWebhooks product = storedUrls.Find(p => p.Url == productUrl);
+
+                if (product.Webhooks.Count != webhooks.Count)
+                    return false;
+
                 foreach(Webhook wh in webhooks)
                 {
                     if(product.Webhooks.Any(w => w.Hash == wh.Hash) == false)
