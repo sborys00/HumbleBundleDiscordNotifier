@@ -122,9 +122,7 @@ namespace HumbleBundleDiscordNotifier.Models
                         string responseContent = await httpResponse.Content.ReadAsStringAsync();
                         if (responseContent.Length > 0)
                         {
-                            Log.Logger.Warning($"Payload could not be sent: ");
-                            Log.Logger.Warning(responseContent);
-                        }
+                            Log.Logger.Warning($"Payload could not be sent: \n" + responseContent);                        }
                     }
                 }
             }
