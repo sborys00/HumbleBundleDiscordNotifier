@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -41,7 +42,34 @@ namespace HumbleBundleDiscordNotifier.Models
             }
         }
 
+        public bool IsProductDelivered(List<UrlWithWebhooks> storedUrls, List<Webhook> webhooks, string productUrl)
+        {
+            if(IsUrlStored(storedUrls, productUrl))
+            {
+                UrlWithWebhooks product = storedUrls.Find(p => p.Url == productUrl);
+                foreach(Webhook wh in webhooks)
+                {
+                    if(product.Webhooks.Any(w => w.Hash == wh.Hash) == false)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
         public bool IsUrlStored(List<UrlWithWebhooks> storedUrls, string url)
+        {
+            foreach (var stored in storedUrls)
+            {
+                if (stored.Url == url)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsSentToAllWebhooks(List<UrlWithWebhooks> storedUrls, string url)
         {
             foreach (var stored in storedUrls)
             {
