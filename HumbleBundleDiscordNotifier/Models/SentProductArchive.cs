@@ -27,26 +27,30 @@ namespace HumbleBundleDiscordNotifier.Models
         public void AddUrl(UrlWithWebhooks urlWithWebhooks)
         {
             List<UrlWithWebhooks> loadedUrls = GetDeserializedUrls();
-            if (IsUrlStored(loadedUrls, urlWithWebhooks.Url))
-                Log.Logger.Information($"{urlWithWebhooks.Url} is already stored in the archive.");
-            else
+            var oldRecord = loadedUrls.Find(r => r.Url == urlWithWebhooks.Url);
+            if (oldRecord != null)
             {
-                loadedUrls.Add(urlWithWebhooks);
-                JsonSerializerOptions options = new JsonSerializerOptions();
-                options.WriteIndented = true;
-                string serializedData = JsonSerializer.Serialize(loadedUrls, options);
-                using (StreamWriter sw = new StreamWriter(filePath))
-                {
-                    sw.Write(serializedData);
-                }
+                loadedUrls.Remove(oldRecord);
+            }
+
+            loadedUrls.Add(urlWithWebhooks);
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.WriteIndented = true;
+            string serializedData = JsonSerializer.Serialize(loadedUrls, options);
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                sw.Write(serializedData);
             }
         }
 
-        public string[] GetWebhookHashes(string productUrl)
+        public List<Webhook> GetWebhooksOfProduct(string productUrl)
         {
-            string[] hashes = GetDeserializedUrls().Find(p => p.Url == productUrl).Webhooks.Select(w => w.Hash).ToArray();
-
-            return hashes;
+            var product = GetDeserializedUrls().Find(p => p.Url == productUrl);
+            if(product != null)
+            {
+                List<Webhook> webhooks = product.Webhooks;
+            }
+            return new List<Webhook>();
         }
 
         public bool IsProductDelivered(List<UrlWithWebhooks> storedUrls, List<Webhook> webhooks, string productUrl)
