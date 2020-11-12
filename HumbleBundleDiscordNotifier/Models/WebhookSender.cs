@@ -55,10 +55,11 @@ namespace HumbleBundleDiscordNotifier.Models
         public void EnqueueProducts(List<Product> products)
         {
             List<UrlWithWebhooks> storedProducts = _archive.GetDeserializedUrls();
+            List<Webhook> webhooks = GetWebhooks();
 
             foreach (Product product in products)
             {
-                if (_archive.IsUrlStored(storedProducts, product.ProductUrl) == false && IsInQueue(product) == false)
+                if (_archive.IsProductDelivered(storedProducts, webhooks, product.ProductUrl) == false && IsInQueue(product) == false)
                 {
                     _productsToSend.Enqueue(product);
                 }
@@ -77,6 +78,7 @@ namespace HumbleBundleDiscordNotifier.Models
             List<Webhook> webhooks = GetWebhooks();
             WebhookPayload payload = new WebhookPayload(product);
             Dictionary<string, int> colors = cfgColors.Get<Dictionary<string, int>>();
+            string[] hashes = _archive.GetWebhookHashes(product.ProductUrl);
 
             foreach(Embed embed in payload.embeds)
             {
@@ -92,7 +94,8 @@ namespace HumbleBundleDiscordNotifier.Models
 
             foreach (Webhook wh in webhooks)
             {
-                tasks.Add(SendWebhook(wh.url, payload));
+                if(hashes.Contains(wh.Hash) == false)
+                    tasks.Add(SendWebhook(wh.url, payload));
             }
 
             try
