@@ -37,6 +37,7 @@ namespace HumbleBundleDiscordNotifier
                 })
                 .UseSerilog()
                 .Build();
+            Log.Logger.Information("Program loaded successfully");
 
             IBundleNotifier bundleNotifier = host.Services.GetRequiredService<IBundleNotifier>();
             bundleNotifier.Run();

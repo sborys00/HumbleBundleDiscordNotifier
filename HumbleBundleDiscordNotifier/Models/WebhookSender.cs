@@ -39,6 +39,7 @@ namespace HumbleBundleDiscordNotifier.Models
                 {
                     Product productToSend = _productsToSend.Dequeue();
                     await SendProduct(productToSend);
+                    Log.Logger.Information(productToSend.ProductName + " sent successfully.");
                 }
                 catch(Exception exception)
                 {
@@ -59,12 +60,18 @@ namespace HumbleBundleDiscordNotifier.Models
 
             _timer.Interval = _config.GetValue<int>("SendingInterval");
 
+            int newProductsCount = 0;
             foreach (Product product in products)
             {
                 if (_archive.IsProductDelivered(storedProducts, webhooks, product.ProductUrl) == false && IsInQueue(product) == false)
                 {
                     _productsToSend.Enqueue(product);
+                    newProductsCount++;
                 }
+            }
+            if(newProductsCount > 0)
+            {
+                Log.Logger.Information($"{newProductsCount} new products found and enqueued to send");
             }
 
             if (_productsToSend.Count > 0 && _timer.Enabled == false)

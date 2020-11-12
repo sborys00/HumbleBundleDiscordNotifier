@@ -43,6 +43,7 @@ namespace HumbleBundleDiscordNotifier.Models
 
             try
             {
+                Log.Logger.Information("Looking for new products");
                 List<Product> products = _scraper.GetListOfProducts();
                 _sender.EnqueueProducts(products.FindAll(p => p.Type == "bundle"));
             }
