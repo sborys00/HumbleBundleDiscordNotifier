@@ -57,6 +57,8 @@ namespace HumbleBundleDiscordNotifier.Models
             List<UrlWithWebhooks> storedProducts = _archive.GetDeserializedUrls();
             List<Webhook> webhooks = GetWebhooks();
 
+            _timer.Interval = _config.GetValue<int>("SendingInterval");
+
             foreach (Product product in products)
             {
                 if (_archive.IsProductDelivered(storedProducts, webhooks, product.ProductUrl) == false && IsInQueue(product) == false)
@@ -67,7 +69,7 @@ namespace HumbleBundleDiscordNotifier.Models
 
             if (_productsToSend.Count > 0 && _timer.Enabled == false)
             {
-                _timer.Start();
+                SendingLoop(null, null);
             }
         }
 
@@ -78,7 +80,7 @@ namespace HumbleBundleDiscordNotifier.Models
             List<Webhook> webhooks = GetWebhooks();
             WebhookPayload payload = new WebhookPayload(product);
             Dictionary<string, int> colors = cfgColors.Get<Dictionary<string, int>>();
-            string[] hashes = _archive.GetWebhookHashes(product.ProductUrl);
+            List<Webhook> webhooksInArchive = _archive.GetWebhooksOfProduct(product.ProductUrl);
 
             foreach(Embed embed in payload.embeds)
             {
@@ -91,11 +93,15 @@ namespace HumbleBundleDiscordNotifier.Models
             }
 
             List<Task> tasks = new List<Task>();
+            List<Webhook> sentWebhooks = new List<Webhook>(); 
 
             foreach (Webhook wh in webhooks)
             {
-                if(hashes.Contains(wh.Hash) == false)
+                if (webhooksInArchive.Any(w => w.Hash == wh.Hash) == false)
+                {
                     tasks.Add(SendWebhook(wh.url, payload));
+                    sentWebhooks.Add(wh);
+                }
             }
 
             try
@@ -109,13 +115,14 @@ namespace HumbleBundleDiscordNotifier.Models
             finally 
             { 
                 UrlWithWebhooks productLabel = new UrlWithWebhooks();
+                productLabel.Webhooks = webhooksInArchive;
                 productLabel.Url = product.ProductUrl;
 
                 for (int i = 0; i < tasks.Count; i++)
                 {
                     if(tasks[i].IsCompletedSuccessfully)
                     {
-                        productLabel.Webhooks.Add(webhooks[i]);
+                        productLabel.Webhooks.Add(sentWebhooks[i]);
                     }
                 }
                 if(productLabel.Webhooks.Count > 0)
