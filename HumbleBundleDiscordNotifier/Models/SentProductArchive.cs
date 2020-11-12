@@ -42,6 +42,13 @@ namespace HumbleBundleDiscordNotifier.Models
             }
         }
 
+        public string[] GetWebhookHashes(string productUrl)
+        {
+            string[] hashes = GetDeserializedUrls().Find(p => p.Url == productUrl).Webhooks.Select(w => w.Hash).ToArray();
+
+            return hashes;
+        }
+
         public bool IsProductDelivered(List<UrlWithWebhooks> storedUrls, List<Webhook> webhooks, string productUrl)
         {
             if(IsUrlStored(storedUrls, productUrl))

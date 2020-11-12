@@ -8,5 +8,6 @@ namespace HumbleBundleDiscordNotifier.Models
         bool IsUrlStored(List<UrlWithWebhooks> storedWebhooks, string url);
         bool IsProductDelivered(List<UrlWithWebhooks> storedUrls, List<Webhook> webhooks, string productUrl);
         public List<UrlWithWebhooks> GetDeserializedUrls();
+        public string[] GetWebhookHashes(string productUrl);
     }
 }
