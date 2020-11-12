@@ -35,8 +35,15 @@ namespace HumbleBundleDiscordNotifier.Models
             _timer.Stop();
             if (_productsToSend.Count > 0)
             {
-                Product productToSend = _productsToSend.Dequeue();
-                await SendProduct(productToSend);
+                try
+                {
+                    Product productToSend = _productsToSend.Dequeue();
+                    await SendProduct(productToSend);
+                }
+                catch(Exception exception)
+                {
+                    Log.Logger.Error(exception.Message);
+                }
             }
             else
             {
@@ -89,24 +96,34 @@ namespace HumbleBundleDiscordNotifier.Models
             {
                 tasks.Add(SendWebhook(wh.url, payload));
             }
-            await Task.WhenAll(tasks);
 
-            UrlWithWebhooks productLabel = new UrlWithWebhooks();
-            productLabel.Url = product.ProductUrl;
-
-            for (int i = 0; i < tasks.Count; i++)
+            try
             {
-                if(tasks[i].IsCompletedSuccessfully)
+                await Task.WhenAll(tasks);
+            }
+            catch(Exception e)
+            {
+                Log.Logger.Error(e.Message);
+            }
+            finally 
+            { 
+                UrlWithWebhooks productLabel = new UrlWithWebhooks();
+                productLabel.Url = product.ProductUrl;
+
+                for (int i = 0; i < tasks.Count; i++)
                 {
-                    productLabel.Webhooks.Add(webhooks[i]);
+                    if(tasks[i].IsCompletedSuccessfully)
+                    {
+                        productLabel.Webhooks.Add(webhooks[i]);
+                    }
+                }
+                if(productLabel.Webhooks.Count > 0)
+                {
+                    _archive.AddUrl(productLabel);
                 }
             }
-            if(productLabel.Webhooks.Count > 0)
-            {
-                _archive.AddUrl(productLabel);
-            }
         }
-
+        
         private async Task SendWebhook(string url, WebhookPayload payload)
         {
             using (WebClient webClient = new WebClient())
@@ -122,7 +139,9 @@ namespace HumbleBundleDiscordNotifier.Models
                         string responseContent = await httpResponse.Content.ReadAsStringAsync();
                         if (responseContent.Length > 0)
                         {
-                            Log.Logger.Warning($"Payload could not be sent: \n" + responseContent);                        }
+                            Log.Logger.Warning($"Payload could not be sent");
+                            throw new Exception(responseContent);
+                        }
                     }
                 }
             }
