@@ -18,8 +18,8 @@ namespace HumbleBundleDiscordNotifier.Models
         {
             _config = config;
 
-            filePath = _config.GetValue<string>("Archive_File_Path");
-
+            filePath = Directory.GetCurrentDirectory() + "\\" +  _config.GetValue<string>("Archive_File_Path");
+            Log.Logger.Information("Archive file path: " + filePath);
             //creates file 
             using(StreamWriter sw = new StreamWriter(filePath, true)){}
 
