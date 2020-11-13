@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /HumbleBundleDiscordNotifier/appsettings.Development.json
 /HumbleBundleDiscordNotifier/appsettings.Production.json
+/HumbleBundleDiscordNotifier/Properties/ServiceDependencies/HumbleBundleDiscordNotifierDevelopment - Web Deploy/profile.arm.json
