@@ -57,5 +57,22 @@ namespace HumbleBundleDiscordNotifierTests
             Assert.Equal(expectedStartDate, product.StartDate);
             Assert.Equal(expectedEndDate, product.EndDate);
         }
+
+        [Fact]
+        public void ClearTagsAndEntities_ShouldWork()
+        {
+            Product product = new Product{
+                ProductName = "<b>Square Enix Action \u0026 Adventure Sale</b>",
+                ProductDescription = "We\u0027ve teamed up with Black Library for our newest bundle! Get audiobooks like \u003cem\u003eFirst and Only\u003c/ em\u003e, \u003cem\u003eRealmslayer\u003c/ em\u003e, \u003cem\u003eSoul Wars\u003c/ em\u003e, \u003cem\u003eFor the Emperor\u003c/ em\u003e, \u003cem\u003eThe House of Night and Chain\u003c/ em\u003e, and \u003cem\u003eValdor: Birth of the Imperium\u003c/ em\u003e. Plus, your purchase will support the EveryLibrary Institute!"
+            };
+            product.ClearTagsAndEntities();
+
+            string nameExpected = "Square Enix Action & Adventure Sale";
+            string descriptionExpected = "We've teamed up with Black Library for our newest bundle! Get audiobooks like First and Only, Realmslayer, Soul Wars, For the Emperor, The House of Night and Chain, and Valdor: Birth of the Imperium. Plus, your purchase will support the EveryLibrary Institute!";
+
+            Assert.Equal(nameExpected, product.ProductName);
+            Assert.Equal(descriptionExpected, product.ProductDescription);
+
+        }
     }
 }
