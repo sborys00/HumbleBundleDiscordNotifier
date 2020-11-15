@@ -1,4 +1,5 @@
-﻿using HumbleBundleDiscordNotifier.Models;
+﻿using HtmlAgilityPack;
+using HumbleBundleDiscordNotifier.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +33,7 @@ namespace HumbleBundleDiscordNotifier
                 {
                     services.AddTransient<ISentProductArchive, SentProductArchive>()
                     .AddTransient<IScraper, Scraper>()
+                    .AddTransient<IDataDownloader, DataDownloader>()
                     .AddSingleton<IWebhookSender, WebhookSender>()
                     .AddSingleton<IBundleNotifier, BundleNotifier>();
                 })

@@ -13,17 +13,21 @@ namespace HumbleBundleDiscordNotifier.Models
     public class Scraper : IScraper
     {
         private readonly IConfiguration _config;
-        private readonly string url;
+        private readonly string _url;
+        private readonly IDataDownloader _web;
 
-        public Scraper(IConfiguration config)
+        public Scraper(IConfiguration config, IDataDownloader web)
         {
             _config = config;
-            url = config.GetValue<string>("WebsiteUrl");
+            _web = web;
+            _url = config.GetValue<string>("WebsiteUrl");
         }
 
         public List<Product> GetListOfProducts()
         {
-            HtmlDocument doc = DownloadHtmlDocument();
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(_web.GetWebsite(_url));
+
             string data = ExtractDataFromHtmlDocument(doc, "webpack-json-data");
 
             JsonDocument json = JsonDocument.Parse(data);
@@ -42,13 +46,6 @@ namespace HumbleBundleDiscordNotifier.Models
             }
 
             return products;
-        }
-
-        private HtmlDocument DownloadHtmlDocument()
-        {
-            HtmlWeb web = new HtmlWeb();
-            HtmlDocument document = web.Load(url);
-            return document;
         }
 
         private string ExtractDataFromHtmlDocument(HtmlDocument doc, string id)
