@@ -141,22 +141,19 @@ namespace HumbleBundleDiscordNotifier.Models
         
         private async Task SendWebhook(string url, WebhookPayload payload)
         {
-            using (WebClient webClient = new WebClient())
+            var httpContent = new StringContent(payload.SerializePayload(), Encoding.UTF8, "application/json");
+
+            using (var httpClient = new HttpClient())
             {
-                var httpContent = new StringContent(payload.SerializePayload(), Encoding.UTF8, "application/json");
+                var httpResponse = await httpClient.PostAsync(url, httpContent);
 
-                using (var httpClient = new HttpClient())
+                if (httpResponse.Content != null)
                 {
-                    var httpResponse = await httpClient.PostAsync(url, httpContent);
-
-                    if (httpResponse.Content != null)
+                    string responseContent = await httpResponse.Content.ReadAsStringAsync();
+                    if (responseContent.Length > 0)
                     {
-                        string responseContent = await httpResponse.Content.ReadAsStringAsync();
-                        if (responseContent.Length > 0)
-                        {
-                            Log.Logger.Warning($"Payload could not be sent");
-                            throw new Exception(responseContent);
-                        }
+                        Log.Logger.Warning($"Payload could not be sent");
+                        throw new Exception(responseContent);
                     }
                 }
             }
