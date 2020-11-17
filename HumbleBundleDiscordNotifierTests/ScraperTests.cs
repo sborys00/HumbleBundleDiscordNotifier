@@ -35,7 +35,7 @@ namespace HumbleBundleDiscordNotifierTests
             var mockCfg = new Mock<IConfiguration>();
             mockCfg.Setup(x => x.GetSection("WebsiteUrl")).Returns(mockCfgSection.Object);
 
-            var mockWeb = new Mock<IDataDownloader>();
+            var mockWeb = new Mock<ICustomWebClient>();
             mockWeb.Setup(x => x.GetWebsite("randomUrl"))
                 .Returns(html);
 

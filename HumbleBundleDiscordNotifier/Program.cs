@@ -33,7 +33,7 @@ namespace HumbleBundleDiscordNotifier
                 {
                     services.AddTransient<ISentProductArchive, SentProductArchive>()
                     .AddTransient<IScraper, Scraper>()
-                    .AddTransient<IDataDownloader, DataDownloader>()
+                    .AddTransient<ICustomWebClient, CustomWebClient>()
                     .AddSingleton<IWebhookSender, WebhookSender>()
                     .AddSingleton<IBundleNotifier, BundleNotifier>();
                 })

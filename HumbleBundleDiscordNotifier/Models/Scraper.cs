@@ -14,9 +14,9 @@ namespace HumbleBundleDiscordNotifier.Models
     {
         private readonly IConfiguration _config;
         private readonly string _url;
-        private readonly IDataDownloader _web;
+        private readonly ICustomWebClient _web;
 
-        public Scraper(IConfiguration config, IDataDownloader web)
+        public Scraper(IConfiguration config, ICustomWebClient web)
         {
             _config = config;
             _web = web;

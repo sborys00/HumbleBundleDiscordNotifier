@@ -2,7 +2,7 @@
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    public class DataDownloader : IDataDownloader
+    public class CustomWebClient : ICustomWebClient
     {
         public string GetWebsite(string url)
         {

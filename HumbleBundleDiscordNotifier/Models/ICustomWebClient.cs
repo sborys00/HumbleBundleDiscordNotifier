@@ -1,6 +1,6 @@
 ﻿namespace HumbleBundleDiscordNotifier.Models
 {
-    public interface IDataDownloader
+    public interface ICustomWebClient
     {
         string GetWebsite(string url);
     }
