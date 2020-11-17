@@ -18,13 +18,15 @@ namespace HumbleBundleDiscordNotifier.Models
         private readonly Queue<Product> _productsToSend;
         private readonly IConfiguration _config;
         private readonly ISentProductArchive _archive;
+        private readonly ICustomWebClient _webClient;
         private readonly Timer _timer;
 
-        public WebhookSender(IConfiguration config, ISentProductArchive archive)
+        public WebhookSender(IConfiguration config, ISentProductArchive archive, ICustomWebClient webClient)
         {
             _productsToSend = new Queue<Product>();
             _config = config;
             _archive = archive;
+            _webClient = webClient;
 
             _timer = new Timer(_config.GetValue<int>("SendingInterval"));
             _timer.Elapsed += SendingLoop;
@@ -143,18 +145,15 @@ namespace HumbleBundleDiscordNotifier.Models
         {
             var httpContent = new StringContent(payload.SerializePayload(), Encoding.UTF8, "application/json");
 
-            using (var httpClient = new HttpClient())
-            {
-                var httpResponse = await httpClient.PostAsync(url, httpContent);
+            var httpResponse = await _webClient.PostAsync(url, httpContent);
 
-                if (httpResponse.Content != null)
+            if (httpResponse.Content != null)
+            {
+                string responseContent = await httpResponse.Content.ReadAsStringAsync();
+                if (responseContent.Length > 0)
                 {
-                    string responseContent = await httpResponse.Content.ReadAsStringAsync();
-                    if (responseContent.Length > 0)
-                    {
-                        Log.Logger.Warning($"Payload could not be sent");
-                        throw new Exception(responseContent);
-                    }
+                    Log.Logger.Warning($"Payload could not be sent");
+                    throw new Exception(responseContent);
                 }
             }
         }
