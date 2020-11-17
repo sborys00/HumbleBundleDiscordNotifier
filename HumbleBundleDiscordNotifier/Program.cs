@@ -34,14 +34,14 @@ namespace HumbleBundleDiscordNotifier
                     services.AddTransient<ISentProductArchive, SentProductArchive>()
                     .AddTransient<IScraper, Scraper>()
                     .AddTransient<ICustomWebClient, CustomWebClient>()
-                    .AddSingleton<IWebhookSender, WebhookSender>()
-                    .AddSingleton<IBundleNotifier, BundleNotifier>();
+                    .AddSingleton<IWebhookSenderService, WebhookSenderService>()
+                    .AddSingleton<IBundleNotifierService, BundleNotifierService>();
                 })
                 .UseSerilog()
                 .Build();
             Log.Logger.Information("Program loaded successfully");
 
-            IBundleNotifier bundleNotifier = host.Services.GetRequiredService<IBundleNotifier>();
+            IBundleNotifierService bundleNotifier = host.Services.GetRequiredService<IBundleNotifierService>();
             bundleNotifier.Run();
 
             //Keeps the program running

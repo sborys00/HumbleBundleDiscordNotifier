@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class WebhookSender : IWebhookSender
+    class WebhookSenderService : IWebhookSenderService
     {
         private readonly Queue<Product> _productsToSend;
         private readonly IConfiguration _config;
@@ -21,7 +21,7 @@ namespace HumbleBundleDiscordNotifier.Models
         private readonly ICustomWebClient _webClient;
         private readonly Timer _timer;
 
-        public WebhookSender(IConfiguration config, ISentProductArchive archive, ICustomWebClient webClient)
+        public WebhookSenderService(IConfiguration config, ISentProductArchive archive, ICustomWebClient webClient)
         {
             _productsToSend = new Queue<Product>();
             _config = config;

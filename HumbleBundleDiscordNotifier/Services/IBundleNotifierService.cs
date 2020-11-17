@@ -1,6 +1,6 @@
 ﻿namespace HumbleBundleDiscordNotifier.Models
 {
-    interface IBundleNotifier
+    interface IBundleNotifierService
     {
         void Run();
         void Stop();

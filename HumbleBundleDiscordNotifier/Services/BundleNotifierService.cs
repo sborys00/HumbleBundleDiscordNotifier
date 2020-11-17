@@ -8,14 +8,14 @@ using System.Timers;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    class BundleNotifier : IBundleNotifier
+    class BundleNotifierService : IBundleNotifierService
     {
         private readonly IConfiguration _config;
-        private readonly IWebhookSender _sender;
+        private readonly IWebhookSenderService _sender;
         private readonly IScraper _scraper;
         private static System.Timers.Timer _timer;
 
-        public BundleNotifier(IConfiguration config, IWebhookSender sender, IScraper scraper)
+        public BundleNotifierService(IConfiguration config, IWebhookSenderService sender, IScraper scraper)
         {
             _config = config;
             _sender = sender;

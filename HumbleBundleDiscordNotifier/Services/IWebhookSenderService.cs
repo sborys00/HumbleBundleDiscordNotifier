@@ -2,7 +2,7 @@
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    interface IWebhookSender
+    interface IWebhookSenderService
     {
         void EnqueueProducts(List<Product> products);
     }
