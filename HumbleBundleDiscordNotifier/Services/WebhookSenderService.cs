@@ -104,17 +104,16 @@ namespace HumbleBundleDiscordNotifier.Models
             List<Task> tasks = new List<Task>();
             List<Webhook> sentWebhooks = new List<Webhook>(); 
 
-            foreach (Webhook wh in webhooks)
-            {
-                if (webhooksInArchive.Any(w => w.Hash == wh.Hash) == false)
-                {
-                    tasks.Add(SendWebhook(wh.url, payload));
-                    sentWebhooks.Add(wh);
-                }
-            }
-
             try
             {
+                foreach (Webhook wh in webhooks)
+                {
+                    if (webhooksInArchive.Any(w => w.Hash == wh.Hash) == false)
+                    {
+                        tasks.Add(SendWebhook(wh.url, payload));
+                        sentWebhooks.Add(wh);
+                    }
+                }
                 await Task.WhenAll(tasks);
             }
             catch(Exception e)
