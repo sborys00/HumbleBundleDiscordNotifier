@@ -96,11 +96,6 @@ namespace HumbleBundleDiscordNotifier.Models
 
         public List<UrlWithWebhooks> GetDeserializedUrls()
         {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException();
-            }
-
             string serializedUrls;
             using (StreamReader sr = new StreamReader(filePath))
                 serializedUrls = sr.ReadToEnd();
