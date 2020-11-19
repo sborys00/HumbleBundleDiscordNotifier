@@ -2,7 +2,7 @@
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    public interface ISentProductArchive
+    public interface IProductArchive
     {
         void AddUrl(UrlWithWebhooks urlWithWebhooks);
         bool IsUrlStored(List<UrlWithWebhooks> storedWebhooks, string url);

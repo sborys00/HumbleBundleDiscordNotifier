@@ -31,7 +31,7 @@ namespace HumbleBundleDiscordNotifier
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddTransient<ISentProductArchive, SentProductArchive>()
+                    services.AddTransient<IProductArchive, ProductArchive>()
                     .AddTransient<IScraper, Scraper>()
                     .AddTransient<ICustomWebClient, CustomWebClient>()
                     .AddSingleton<IWebhookSenderService, WebhookSenderService>()

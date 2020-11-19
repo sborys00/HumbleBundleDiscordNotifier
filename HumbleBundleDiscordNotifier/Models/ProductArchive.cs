@@ -9,12 +9,12 @@ using System.Text.Json;
 
 namespace HumbleBundleDiscordNotifier.Models
 {
-    public class SentProductArchive : ISentProductArchive
+    public class ProductArchive : IProductArchive
     {
         private readonly IConfiguration _config;
         private readonly string filePath;
 
-        public SentProductArchive(IConfiguration config)
+        public ProductArchive(IConfiguration config)
         {
             _config = config;
 

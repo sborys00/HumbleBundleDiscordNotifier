@@ -17,11 +17,11 @@ namespace HumbleBundleDiscordNotifier.Models
     {
         private readonly Queue<Product> _productsToSend;
         private readonly IConfiguration _config;
-        private readonly ISentProductArchive _archive;
+        private readonly IProductArchive _archive;
         private readonly ICustomWebClient _webClient;
         private readonly Timer _timer;
 
-        public WebhookSenderService(IConfiguration config, ISentProductArchive archive, ICustomWebClient webClient)
+        public WebhookSenderService(IConfiguration config, IProductArchive archive, ICustomWebClient webClient)
         {
             _productsToSend = new Queue<Product>();
             _config = config;
