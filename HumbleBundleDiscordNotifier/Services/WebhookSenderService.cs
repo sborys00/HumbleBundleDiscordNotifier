@@ -14,7 +14,7 @@ using HumbleBundleDiscordNotifier.Models;
 
 namespace HumbleBundleDiscordNotifier.Services
 {
-    class WebhookSenderService : IWebhookSenderService
+   public  class WebhookSenderService : IWebhookSenderService
     {
         private readonly Queue<Product> _productsToSend;
         private readonly IConfiguration _config;
