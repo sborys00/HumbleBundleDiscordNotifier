@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Timers;
+using HumbleBundleDiscordNotifier.Models;
 
-namespace HumbleBundleDiscordNotifier.Models
+namespace HumbleBundleDiscordNotifier.Services
 {
     class BundleNotifierService : IBundleNotifierService
     {

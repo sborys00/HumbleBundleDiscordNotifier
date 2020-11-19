@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Text.Json;
 using System.Linq;
+using HumbleBundleDiscordNotifier.Models;
 
-namespace HumbleBundleDiscordNotifier.Models
+namespace HumbleBundleDiscordNotifier.Services
 {
     class WebhookSenderService : IWebhookSenderService
     {

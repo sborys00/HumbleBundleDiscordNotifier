@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using HumbleBundleDiscordNotifier.Models;
 
-namespace HumbleBundleDiscordNotifier.Models
+namespace HumbleBundleDiscordNotifier.Services
 {
-    interface IWebhookSenderService
+    public interface IWebhookSenderService
     {
         void EnqueueProducts(List<Product> products);
     }

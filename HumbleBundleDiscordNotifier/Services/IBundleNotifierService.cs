@@ -1,4 +1,4 @@
-﻿namespace HumbleBundleDiscordNotifier.Models
+﻿namespace HumbleBundleDiscordNotifier.Services
 {
     interface IBundleNotifierService
     {
